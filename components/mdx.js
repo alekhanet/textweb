@@ -7,6 +7,10 @@ import Heading from "./daisyUI/heading"
 import Hero from "./daisyUI/hero"
 import Image from "./daisyUI/image"
 import Section from "./daisyUI/section"
+import Navbar from "./daisyUI/navbar"
+import NavbarLogo from "./daisyUI/navbar-logo"
+import NavbarNavigation from "./daisyUI/navabs-navigation"
+import Box from "./daisyUI/box"
 
 const MDXComponents = {
   Alert,
@@ -19,6 +23,10 @@ const MDXComponents = {
   Badge: ({ children }) => <div>{children}</div>,
   Image,
   Section,
+  NavbarLogo,
+  Navbar,
+  NavbarNavigation,
+  Box
 }
 
 export default MDXComponents
