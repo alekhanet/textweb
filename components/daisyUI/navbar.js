@@ -1,7 +1,3 @@
-export default ({children, companyName})=>{
-    return(
-        <div className="navbar">
-            {children}
-        </div>
-    )
+export default function Navbar({ children, companyName }) {
+  return <div className="navbar">{children}</div>;
 }
