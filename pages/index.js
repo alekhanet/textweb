@@ -50,12 +50,12 @@ export default function Index({ uid, isPage = false, mdxSource }) {
         <Dashboard uid={uid} />
       ) : (
         <div className="hero w-full h-full flex flex-col justify-center items-center">
-          <h1 className="w-full text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-blue-600 text-center my-6">
+          <h1 className="w-full text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-red-500 text-center my-6">
             Beautiful Landing Pages <br /> with MDX in <br /> Just 10 Seconds!
           </h1>
 
           <a
-            className="btn btn-info my-4"
+            className="btn btn-info my-6 bg-gradient-to-r from-yellow-500 to-red-500"
             href={`http://demo-page.${HOSTNAME}`}
           >
             See Demo Page

@@ -1342,6 +1342,30 @@ const myElement = document.getElementsByClassName('hero')
          updatePointerMoveData(pointer, posX, posY)
     })
 
+    myElement[0].addEventListener('touchmove', e => {
+        e.preventDefault();
+        const touches = e.targetTouches;
+        for (let i = 0; i < touches.length; i++) {
+            let pointer = pointers[i + 1];
+            if (!pointer.down) continue;
+            let posX = scaleByPixelRatio(touches[i].pageX);
+            let posY = scaleByPixelRatio(touches[i].pageY);
+            updatePointerMoveData(pointer, posX, posY);
+        }
+    }, false);
+
+    myElement[0].addEventListener('touchstart', e => {
+        e.preventDefault();
+        const touches = e.targetTouches;
+        while (touches.length >= pointers.length)
+            pointers.push(new pointerPrototype());
+        for (let i = 0; i < touches.length; i++) {
+            let posX = scaleByPixelRatio(touches[i].pageX);
+            let posY = scaleByPixelRatio(touches[i].pageY);
+            updatePointerDownData(pointers[i + 1], touches[i].identifier, posX, posY);
+        }
+    });
+
 canvas.addEventListener('touchstart', e => {
     e.preventDefault();
     const touches = e.targetTouches;
