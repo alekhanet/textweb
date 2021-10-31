@@ -17,6 +17,7 @@ import Layout from "../components/Layout"
 import MDXComponents from "../components/mdx"
 import Loader from "../components/loader"
 import Dashboard from "../components/dashboard"
+import Fluid from '../components/Fluid'
 
 export default function Index({ uid, isPage = false, mdxSource }) {
   const [loader, setLoader] = useState(true)
@@ -48,7 +49,7 @@ export default function Index({ uid, isPage = false, mdxSource }) {
       ) : isUser ? (
         <Dashboard uid={uid} />
       ) : (
-        <div className="w-full h-full flex flex-col justify-center items-center">
+        <div className="hero w-full h-full flex flex-col justify-center items-center">
           <h1 className="w-full text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-blue-600 text-center my-6">
             Beautiful Landing Pages <br /> with MDX in <br /> Just 10 Seconds!
           </h1>
@@ -61,6 +62,9 @@ export default function Index({ uid, isPage = false, mdxSource }) {
           </a>
         </div>
       )}
+      <div id="fluid-background" className="fixed left-0 top-0 h-full w-full z-10">
+        <Fluid />
+      </div>
     </Layout>
   )
 }

@@ -7,6 +7,18 @@
  *    IE on Windows Phone and in iOS.
  */
 
+ * {
+   z-index: 20;
+ }
+
+ .navbar {
+    z-index: 48;
+ }
+ 
+ canva {
+   z-index: 100;
+ }
+
 html {
   line-height: 1.15; /* 1 */
   -ms-text-size-adjust: 100%; /* 2 */
