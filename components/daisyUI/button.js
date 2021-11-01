@@ -19,7 +19,7 @@ export default function Button({
     classes ? classes : ""
   } ${rounded ? "rounded-full" : ""}`;
   return icon ? (
-    <button className={_classes + "flex flex-col items-center"}>
+    <button className={_classes + "flex flex-row items-center"}>
       <img className="h-1/2 rounded-3xl mr-5" src={icon} />
       <span className="font-normal font-mono text-sm text-l">{children}</span>
     </button>

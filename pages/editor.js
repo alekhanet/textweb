@@ -1,33 +1,32 @@
-import { useEffect, useRef, useState } from "react"
-import matter from "gray-matter"
-import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage"
+import { useEffect, useRef, useState } from "react";
+import matter from "gray-matter";
+import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 const {
   uniqueNamesGenerator,
   adjectives,
   colors,
   animals,
-} = require("unique-names-generator")
+} = require("unique-names-generator");
 
-import Layout from "../components/Layout"
-import Editor from "../components/editor"
-import Preview from "../components/preview"
-import { fireStorage } from "../utils/fire-client"
-import { HOSTNAME } from "../config"
+import Layout from "../components/Layout";
+import Editor from "../components/editor";
+import Preview from "../components/preview";
+import { fireStorage } from "../utils/fire-client";
+import { HOSTNAME } from "../config";
 
 const LiveEditor = ({ uid }) => {
-  const [mdxCode, setMdxCode] = useState("# THIS IS MDX")
-  const [mdx, setMDX] = useState()
-  const [message, setMessage] = useState("")
-  const [mType, setMType] = useState("")
-  const [currentImgUrl, setCurrentImgUrl] = useState("")
-  const [pageLink, setPageLink] = useState("")
-  const [pubLoad, setPubLoad] = useState(false)
-  const [upLoad, setUpLoad] = useState(false)
-  const uploadBtnRef = useRef()
+  const [mdxCode, setMdxCode] = useState("");
+  const [mdx, setMDX] = useState();
+  const [message, setMessage] = useState("");
+  const [mType, setMType] = useState("");
+  const [currentImgUrl, setCurrentImgUrl] = useState("");
+  const [pageLink, setPageLink] = useState("");
+  const [pubLoad, setPubLoad] = useState(false);
+  const [upLoad, setUpLoad] = useState(false);
+  const uploadBtnRef = useRef();
 
   useEffect(async () => {
-    const { content, data } = matter(mdxCode)
-
+    const { content, data } = matter(mdxCode);
     const response = await fetch("/api/render-string", {
       method: "POST",
       body: JSON.stringify({
@@ -36,21 +35,21 @@ const LiveEditor = ({ uid }) => {
       headers: {
         "Content-Type": "application/json",
       },
-    })
+    });
 
     if (response.ok) {
-      const result = await response.json()
-      setMDX(result.result)
+      const result = await response.json();
+      setMDX(result.result);
     }
-  }, [mdxCode])
+  }, [mdxCode]);
 
   function submitPage() {
-    setPubLoad(true)
+    setPubLoad(true);
 
     if (uid) {
       const randomName = uniqueNamesGenerator({
         dictionaries: [adjectives, colors, animals],
-      }).replace(/_/g, "-")
+      }).replace(/_/g, "-");
 
       fetch("/api/publish", {
         method: "POST",
@@ -67,82 +66,83 @@ const LiveEditor = ({ uid }) => {
         .then((data) => data.json())
         .then((data) => {
           if (data.ok) {
-            setPubLoad(false)
+            setPubLoad(false);
             showMessage(
               data.message,
               "green",
               `http://${randomName}.${HOSTNAME}`
-            )
+            );
           }
-        })
+        });
     }
   }
 
   function handleImageUpload(e) {
-    setUpLoad(true)
-    const image = e.target.files[0]
+    setUpLoad(true);
+    const image = e.target.files[0];
 
-    const imageRef = ref(fireStorage, `images/${image.name}`)
-    const uploadTask = uploadBytesResumable(imageRef, image)
+    const imageRef = ref(fireStorage, `images/${image.name}`);
+    const uploadTask = uploadBytesResumable(imageRef, image);
 
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        console.log("Upload is " + progress + "% done")
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
         switch (snapshot.state) {
           case "paused":
-            console.log("Upload is paused")
-            break
+            console.log("Upload is paused");
+            break;
           case "running":
-            console.log("Upload is running")
-            break
+            console.log("Upload is running");
+            break;
         }
       },
       (error) => {},
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setCurrentImgUrl(downloadURL)
-          console.log("File available at", downloadURL)
-          setUpLoad(false)
-        })
+          setCurrentImgUrl(downloadURL);
+          console.log("File available at", downloadURL);
+          setUpLoad(false);
+        });
       }
-    )
+    );
   }
 
   function copyTextToClipboard(e) {
-    e.target.innerHTML = "Copied..."
+    e.target.innerHTML = "Copied...";
     setTimeout(() => {
-      e.target.innerHTML = "Copy Image URL"
-    }, 2000)
-    var textArea = document.createElement("textarea")
-    textArea.value = currentImgUrl
+      e.target.innerHTML = "Copy Image URL";
+    }, 2000);
+    var textArea = document.createElement("textarea");
+    textArea.value = currentImgUrl;
 
-    textArea.style.top = "0"
-    textArea.style.left = "0"
-    textArea.style.position = "fixed"
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
 
-    document.body.appendChild(textArea)
-    textArea.focus()
-    textArea.select()
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
 
     try {
-      var successful = document.execCommand("copy")
-      var msg = successful ? "successful" : "unsuccessful"
-      console.log("Fallback: Copying text command was " + msg)
+      var successful = document.execCommand("copy");
+      var msg = successful ? "successful" : "unsuccessful";
+      console.log("Fallback: Copying text command was " + msg);
     } catch (err) {
-      console.error("Fallback: Oops, unable to copy", err)
+      console.error("Fallback: Oops, unable to copy", err);
     }
 
-    document.body.removeChild(textArea)
+    document.body.removeChild(textArea);
   }
 
   function showMessage(message, type, link = "") {
-    setMessage(message)
-    setMType(type)
-    setPageLink(link)
+    setMessage(message);
+    setMType(type);
+    setPageLink(link);
 
-    setTimeout(() => setMessage(""), 10000)
+    setTimeout(() => setMessage(""), 10000);
   }
 
   return (
@@ -177,7 +177,7 @@ const LiveEditor = ({ uid }) => {
             <button
               className={"my-2 btn btn-info ml-2 " + (upLoad ? "loading" : "")}
               onClick={() => {
-                uploadBtnRef.current.click()
+                uploadBtnRef.current.click();
               }}
             >
               UPLOAD IMAGE
@@ -203,23 +203,23 @@ const LiveEditor = ({ uid }) => {
         </>
       )}
     </Layout>
-  )
-}
+  );
+};
 
-export default LiveEditor
+export default LiveEditor;
 
 export async function getServerSideProps({ req, res }) {
-  const { uid } = req.cookies
+  const { uid } = req.cookies;
 
   if (uid) {
     return {
       props: {
         uid,
       },
-    }
+    };
   }
 
   return {
     props: {},
-  }
+  };
 }

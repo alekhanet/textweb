@@ -1,3 +1,5 @@
 export default function Box({ children, classes }) {
-  return <div className={classes}>{children}</div>;
+  const _classes =
+    "flex flex-col justify-center p-12" + (classes ? classes : "");
+  return <div className={_classes}>{children}</div>;
 }
