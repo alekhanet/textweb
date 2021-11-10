@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import Icon from 'react-icons-kit';
 import { checkmarkCircled } from 'react-icons-kit/ionicons/checkmarkCircled';
 import { closeCircled } from 'react-icons-kit/ionicons/closeCircled';
@@ -16,60 +16,65 @@ import SectionWrapper, {
 } from './pricing.style';
 import { pricingInfo } from '../common/data/HostingModern';
 
-const Pricing = () => {
+
+export const HostingFuturesList = ({isDisabled,name}) => {
+  return (
+    <List
+      className={`listItem ${isDisabled && 'disabled'}`}
+      text={name}
+      icon={
+        <Icon
+          style={{
+            color: isDisabled ? '#CED7E1' : '#E9C46A',
+          }}
+          icon={
+            isDisabled ? closeCircled : checkmarkCircled
+          }
+          size="18"
+        />
+        }
+    />
+  )
+}
+
+export const HostingPricingTable = ({isRecommended,price,title,desc,buttonText,children}) => {
+  return (
+    <PriceTable
+    className={isRecommended && 'recommended'}
+  >
+    <Text as="div" className="rec-label"
+      content={isRecommended ? 'Highly Recommended' : ''}
+    />
+    <Heading as="h4" content={title} />
+    <Text className="desc" content={desc} />
+    <Price>
+      ${price}/<span>per mo.</span>
+    </Price>
+    <Button
+      className={`${!isRecommended && "solid "} start-trial ${
+        !isRecommended && ' outlined'
+      }`}
+      title={buttonText}
+    />
+    {children}
+  </PriceTable>
+  )
+}
+
+const HostingPricing = ({title,description,children}) => {
   return (
     <SectionWrapper id="pricing">
       <Container>
         <SectionHeading
-          slogan="Deal for your business"
-          title="Meet our pricing plan that suit you"
+          slogan={ title || "Deal for your business"}
+          title={ description || "Meet our pricing plan that suit you"}
         />
         <ContentWrapper>
-          {pricingInfo.map((pricing) => (
-            <PriceTable
-              key={pricing.id}
-              className={pricing.isRecommended && 'recommended'}
-            >
-              <Text
-                as="div"
-                className="rec-label"
-                content={pricing.isRecommended ? 'Highly Recommended' : ''}
-              />
-              <Heading as="h4" content={pricing.title} />
-              <Text className="desc" content={pricing.desc} />
-              <Price>
-                ${pricing.price}/<span>per mo.</span>
-              </Price>
-              <Button
-                className={`start-trial ${
-                  !pricing.isRecommended && 'outlined'
-                }`}
-                title={pricing.buttonText}
-              />
-              {pricing.features.map((feature) => (
-                <List
-                  className={`listItem ${feature.isDisabled && 'disabled'}`}
-                  key={feature.id}
-                  text={feature.name}
-                  icon={
-                    <Icon
-                      style={{
-                        color: feature.isDisabled ? '#CED7E1' : '#E9C46A',
-                      }}
-                      icon={
-                        feature.isDisabled ? closeCircled : checkmarkCircled
-                      }
-                      size="18"
-                    />
-                  }
-                />
-              ))}
-            </PriceTable>
-          ))}
+          {children}
         </ContentWrapper>
       </Container>
     </SectionWrapper>
   );
 };
 
-export default Pricing;
+export default HostingPricing;

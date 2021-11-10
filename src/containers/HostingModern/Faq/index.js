@@ -8,25 +8,31 @@ import SectionHeading from '../SectionHeading';
 import SectionWrapper, { ContentWrapper, FaqItem } from './faq.style';
 import { faqs } from '../common/data/HostingModern';
 
-const Faq = () => {
+export const HostingFaqItem = ({index, itemTitle, children}) => {
+  return (
+    <Fade key={index} up delay={100 * index}>
+      <FaqItem>
+        <Heading as="h4" content={itemTitle} />
+        <Text content={children} />
+      </FaqItem>
+    </Fade>
+  )
+}
+
+const Faq = ({faqTitle,faqDescription, children}) => {
+  // const Faqs = faqItems ? faqItems : faqs;
   return (
     <SectionWrapper id="faq">
       <Container>
         <Fade up delay={100}>
           <SectionHeading
-            slogan="Ideal solutions for you"
-            title="Didn’t find what you were looking for?"
+            slogan={faqTitle || "Ideal solutions for you"}
+            title={faqDescription || "Didn’t find what you were looking for?"}
           />
         </Fade>
         <ContentWrapper>
-          {faqs.map((faq) => (
-            <Fade key={faq.id} up delay={100 * faq.id}>
-              <FaqItem>
-                <Heading as="h4" content={faq.title} />
-                <Text content={faq.desc} />
-              </FaqItem>
-            </Fade>
-          ))}
+          {/* {Faqs.map((faq,index) => (          ))} */}
+          {children}
         </ContentWrapper>
       </Container>
     </SectionWrapper>

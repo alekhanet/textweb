@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import { Icon } from 'react-icons-kit';
 import { thinRight } from 'react-icons-kit/entypo/thinRight';
 import Container from '../common/components/UI/ContainerTwo';
@@ -17,36 +17,40 @@ import FeatureWrapper, { FeatureContent, Content, Ipad } from './feature.style';
 import { accordions } from '../common/data/HostingModern';
 import iPad from '../common/assets/image/hostingModern/ipad.png';
 
-const Feature = () => {
+
+
+export const HostingFeatureAccordion = ({title,children}) => {
+  return (
+    <AccordionItem>
+      <AccordionButton>
+        {title} <Icon icon={thinRight} />
+      </AccordionButton>
+      <AccordionPanel>{children}</AccordionPanel>
+    </AccordionItem>
+  );
+}
+
+const HostingFeature = ({imageSrc, content, title, description, children}) => {
   return (
     <FeatureWrapper id="features">
       <Ipad>
-        <NextImage src={iPad} alt="" />
+        <NextImage src={imageSrc || iPad} alt="" />
       </Ipad>
       <Container>
         <FeatureContent>
           <SectionHeading
             mb="20px"
-            slogan="Website content builder"
-            title="Meet our premium features that will make you wow"
+            slogan={title || "Website content builder"}
+            title={description || "Meet our premium features that will make you wow"}
             textAlign="left"
           />
           <Content>
             <Text
               className="caption"
-              content="Build an incredible workplace and grow your business with Gusto’s all-in-one platform with amazing contents."
+              content={content || "Build an incredible workplace and grow your business with Gusto’s all-in-one platform with amazing contents."}
             />
             <Accordion>
-              {accordions.map((item) => {
-                return (
-                  <AccordionItem key={item.id}>
-                    <AccordionButton>
-                      {item.title} <Icon icon={thinRight} />
-                    </AccordionButton>
-                    <AccordionPanel>{item.desc}</AccordionPanel>
-                  </AccordionItem>
-                );
-              })}
+              {children}
             </Accordion>
           </Content>
         </FeatureContent>
@@ -55,4 +59,4 @@ const Feature = () => {
   );
 };
 
-export default Feature;
+export default HostingFeature;

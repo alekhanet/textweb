@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Container from '../common/components/UI/ContainerTwo';
 import Heading from '../common/components/Heading';
@@ -11,7 +11,7 @@ import SectionWrapper, {
 } from './testimonials.style';
 
 import { testimonials } from '../common/data/HostingModern';
-import 'swiper/css';
+
 
 const settings = {
   effect: 'fade',
@@ -24,28 +24,52 @@ const settings = {
   },
 };
 
-const Testimonials = () => {
+import 'swiper/css';
+import Author from '../common/assets/image/hostingModern/author1.png';
+
+
+
+export const HostingTestimonialsSlider = ({description,author,job,imageSrc}) => {
+  return (
+    <SwiperSlide>
+      <Testimonial>
+        <Figure>
+          <NextImage src={imageSrc || Author} alt="" />
+        </Figure>
+        <Caption>
+          <Heading content={description || "Best host I've had in 10 years. Smooth migration, no stress, and friendly support one click away. I'm very happy and recommend their services"} />
+          <p>
+            <strong>{author || "Melina Pettendorfer"}</strong>,{' '}
+            {job || "CEO of Uber"}
+          </p>
+        </Caption>
+      </Testimonial>
+    </SwiperSlide>
+  )
+}
+
+const HostingTestimonials = ({testimonials}) => {
   return (
     <SectionWrapper id="testimonials">
       <Container>
         <Content>
           <Swiper className="slider" {...settings}>
-            {testimonials.map((testimonial) => (
-              <SwiperSlide key={testimonial.id}>
+            {testimonials.map((e) => 
+              <SwiperSlide>
                 <Testimonial>
                   <Figure>
-                    <NextImage src={testimonial.image} alt={testimonial.name} />
+                    <NextImage src={ Author} alt="" />
                   </Figure>
                   <Caption>
-                    <Heading content={testimonial.quote} />
+                    <Heading content={e.desc || "Best host I've had in 10 years. Smooth migration, no stress, and friendly support one click away. I'm very happy and recommend their services"} />
                     <p>
-                      <strong>{testimonial.name}</strong>,{' '}
-                      {testimonial.designation}
+                      <strong>{e.author || "Melina Pettendorfer"}</strong>,{' '}
+                      {e.job || "CEO of Uber"}
                     </p>
                   </Caption>
                 </Testimonial>
-              </SwiperSlide>
-            ))}
+            </SwiperSlide>
+            )}
           </Swiper>
         </Content>
       </Container>
@@ -53,4 +77,4 @@ const Testimonials = () => {
   );
 };
 
-export default Testimonials;
+export default HostingTestimonials;

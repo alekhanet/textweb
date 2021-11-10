@@ -53,6 +53,8 @@ export const PrimaryNav = styled.nav`
   }
   .joinButton {
     white-space: nowrap;
+    margin-left: auto;
+    padding-left:10px;
     button {
       @media only screen and (min-width: 1024px) and (max-height: 1366px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1.5) {
         font-size: 14px;
@@ -61,6 +63,12 @@ export const PrimaryNav = styled.nav`
         min-height: 32px;
       }
     }
+  }
+  li {
+    list-style: none;
+    display:inline;
+    padding-left:20px;
+    padding-left:20px;
   }
 `;
 

@@ -83,6 +83,10 @@ export const PriceTable = styled.div`
       color: ${themeGet('colors.primary')};
     }
   }
+
+  .solid {
+    color:black !important;
+  }
   .listItem {
     color: ${themeGet('colors.text')};
     display: flex;

@@ -12,45 +12,52 @@ import SectionWrapper, { FeatureWrapper } from './ultimateFeature.style';
 import SectionHeading from '../SectionHeading';
 import { features } from '../common/data/HostingModern';
 
-const UltimateFeature = () => {
+import FutureIcon from '../common/assets/image/hostingModern/features/1.png'
+export const HostingFeatureBlock = ({title,description,buttonText,linkUrl,iconSrc}) => {
+
+
+  return (
+    <FeatureBlock
+      icon={<img className="mx-auto" src={iconSrc || FutureIcon} alt={title} />}
+      title={<Heading as="h4" content={title} />}
+      description={
+        <>
+          <Text content={description || "description"} />
+          <Link href="#" className="learn__more">
+            {buttonText || "learn more"} <Icon icon={chevronRight} />
+          </Link>
+        </>
+      }
+      className="ultimateFeature"
+    />
+  )
+}
+
+
+const HostingUltimateFeatures = ({title, description, children}) => {
   return (
     <SectionWrapper id="features">
       <Container>
         <SectionHeading
           mb="20px"
-          slogan="Product features"
-          title="Ultimate features that works"
+          slogan={title || "Product features"}
+          title={description || "Ultimate features that works"}
         />
 
         <FeatureWrapper>
-          {features.map((feature, index) => (
-            <FeatureBlock
-              key={index}
-              icon={<img className="mx-auto" src={feature.icon?.src} alt={feature.title} />}
-              title={<Heading as="h4" content={feature.title} />}
-              description={
-                <React.Fragment>
-                  <Text content={feature.desc} />
-                  <Link href="#" className="learn__more">
-                    Learn More <Icon icon={chevronRight} />
-                  </Link>
-                </React.Fragment>
-              }
-              className="ultimateFeature"
-            />
-          ))}
+          {children}
         </FeatureWrapper>
       </Container>
     </SectionWrapper>
   );
 };
 
-UltimateFeature.propTypes = {
+HostingUltimateFeatures.propTypes = {
   row: PropTypes.object,
   col: PropTypes.object,
 };
 
-UltimateFeature.defaultProps = {
+HostingUltimateFeatures.defaultProps = {
   row: {
     flexBox: true,
     flexWrap: 'wrap',
@@ -62,4 +69,4 @@ UltimateFeature.defaultProps = {
   },
 };
 
-export default UltimateFeature;
+export default HostingUltimateFeatures;

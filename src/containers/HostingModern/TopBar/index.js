@@ -14,7 +14,7 @@ import TopBarWrapper, {
   Wrapper,
 } from './topbar.style';
 
-const TopBar = () => {
+const TopBar = ({text,price,linkText,linkHref}) => {
   const [closeTopBar, setCloseTopBar] = useState(false);
 
   const handleClose = () => {
@@ -27,16 +27,17 @@ const TopBar = () => {
         <TopbarInner>
           <p className="caption">
             <Image src={gift?.src} alt="gift icon" />
-            Cyber monday sale begin, just grave the hot pricing
-            <strong className="tlds">.COM $15 .NET $14 .ORG $19</strong>
+            {text || "Cyber monday sale begin, just grave the hot pricing"}
+            <strong className="tlds">{price || ".COM $15 .NET $14 .ORG $19"}</strong>
           </p>
 
-          <Link href="#">
+          <Link href={linkHref || "#"}>
             <a className="dealsLink">
-              <span>See all deals</span>
+              <span>{linkText || "See all deals"}</span>
               <Icon className="close" icon={arrowRight} size={14} />
             </a>
           </Link>
+          
           <Button
             onClick={handleClose}
             className="closeTopBar"

@@ -5,7 +5,7 @@ import HGroup from './sectionHeading.style';
 const SectionHeading = ({ title, slogan, ...props }) => {
   return (
     <HGroup {...props}>
-      <Heading as="h4" content={slogan} />
+      <div className="text-bluedar"><Heading as="h4" content={slogan} /></div>
       <Heading as="h2" content={title} />
     </HGroup>
   );

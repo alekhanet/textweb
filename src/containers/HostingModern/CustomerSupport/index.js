@@ -14,39 +14,33 @@ import SectionWrapper, {
 } from './customerSupport.style';
 import messenger from '../common/assets/image/hostingModern/messenger.png';
 
-const CustomerSupport = () => {
+
+
+export const HostingIconList = ({title}) => {
+  return (
+    <List
+      className="listItem"
+      icon={<Icon icon={checkmarkCircled} size="18" />}
+      text={ title || "This is the default text"}
+    />
+  )
+}
+
+const HostingCustomerSupport = ({title,description,imageSrc,children}) => {
   return (
     <SectionWrapper>
       <Container>
         <ContentWrapper>
           <Figure>
-            <NextImage src={messenger} alt="messenger" />
+            <NextImage src={imageSrc || messenger} alt="messenger" />
           </Figure>
           <Content>
-            <Heading content="Customer support is our main priority with their hundred percent satisfaction." />
-            <Text content="Get your tests delivered at let home collect sample from the victory of the managements that supplies best design system guidelines ever." />
+            <Heading 
+            content={title || "Customer support is our main priority."} />
+            <Text content={ description || "Get your tests delivered home collect sample ."} />
 
             <IconList>
-              <List
-                className="listItem"
-                icon={<Icon icon={checkmarkCircled} size="18" />}
-                text="Medical and vision"
-              />
-              <List
-                className="listItem"
-                icon={<Icon icon={checkmarkCircled} size="18" />}
-                text="Life insurance"
-              />
-              <List
-                className="listItem"
-                icon={<Icon icon={checkmarkCircled} size="18" />}
-                text="HSAs and FSAs"
-              />
-              <List
-                className="listItem"
-                icon={<Icon icon={checkmarkCircled} size="18" />}
-                text="Commuter benefits"
-              />
+              {children}
             </IconList>
           </Content>
         </ContentWrapper>
@@ -55,4 +49,4 @@ const CustomerSupport = () => {
   );
 };
 
-export default CustomerSupport;
+export default HostingCustomerSupport;

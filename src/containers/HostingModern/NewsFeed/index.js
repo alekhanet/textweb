@@ -8,30 +8,41 @@ import SectionHeading from '../SectionHeading';
 import SectionWrapper, { ContentWrapper } from './newsFeed.style';
 import { newsFeed } from '../common/data/HostingModern';
 
-const NewsFeed = () => {
+
+import news3 from '../common/assets/image/hostingModern/news3.png';
+export const HostingFeedPost = ({ id, imageSrc, description, title, linkUrl, linkText }) => {
+
+  return (
+    <BlogPost
+      key={id}
+      thumbUrl={imageSrc || news3}
+      title={title || "default title"}
+      excerpt={description || "lorem ipsup dolor set amet rurbe ejezz"}
+      link={
+        <Link href={linkUrl || "#"}>
+          <a className="excerptLink">
+            {linkText || "link text"} <Icon icon={angleRight} />
+          </a>
+        </Link>
+      }
+    />
+  )
+}
+
+const NewsFeed = ({
+  title,
+  description,
+  children,
+}) => {
   return (
     <SectionWrapper id="news">
       <Container>
         <SectionHeading
-          slogan="Latest newsfeed"
-          title="Our recent blog post that updated"
+          slogan={ title || "Latest newsfeed"}
+          title={ description || "Our recent blog post that updated"}
         />
         <ContentWrapper>
-          {newsFeed.map((news) => (
-            <BlogPost
-              key={news.id}
-              thumbUrl={news.image}
-              title={news.title}
-              excerpt={news.excerpt}
-              link={
-                <Link href={news.link}>
-                  <a className="excerptLink">
-                    Learn More <Icon icon={angleRight} />
-                  </a>
-                </Link>
-              }
-            />
-          ))}
+          {children}
         </ContentWrapper>
       </Container>
     </SectionWrapper>

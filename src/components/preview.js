@@ -1,6 +1,7 @@
 import hydrate from "next-mdx-remote/hydrate"
 import MDXComponents from "./mdx"
 
+
 const Preview = ({ mdxPreview }) => {
   let mdx
   try {

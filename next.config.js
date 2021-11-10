@@ -5,6 +5,10 @@ module.exports = {
 
     return config
   },
+  images: {
+    domains: ['picsum.photos'],
+    formats: ['image/jpg', 'image/webp'],
+  },
 }
 
 const withMDX = require('@next/mdx')({

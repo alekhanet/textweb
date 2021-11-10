@@ -8,22 +8,22 @@ import Hero from "./daisyUI/hero"
 import Image from "./daisyUI/image"
 import Section from "./daisyUI/section"
 
-// Hosting Modern Template
-// Hosting Modern Template
+
+
 // Hosting Modern Template
 import HostingBanner from "./HostingModern/HostingBanner"
 import HostingCallToA from "./HostingModern/HostingCallToA"
-import HostingCSupport from "./HostingModern/HostingCSupport"
+import HostingCustomerSupport , {HostingIconList} from "../containers/HostingModern/CustomerSupport"
 import HostingNavbar from "./HostingModern/HostingNavbar"
-import HostingTopBar from "./HostingModern/HostingTopBar"
-import HostingFooter from "./HostingModern/HostingFooter"
-import HostingFeature from "./HostingModern/HostingFeature"
-import HostingFaq from "./HostingModern/HostingFaq"
-import HostingNewsFeed from "./HostingModern/HostingNewsFeed"
-import HostingPricing from "./HostingModern/HostingPricing"
-import HostingService from "./HostingModern/HostingService"
-import HostingTestimonials from "./HostingModern/HostingTestimonials"
-import HostingUltimateFeature from "./HostingModern/HostingUltimateFeature"
+import HostingTopBar from "../containers/HostingModern/TopBar"
+import HostingFooter, { HostingFooterWidget, HostingWidgetLink } from "../containers/HostingModern/Footer"
+import HostingFeature, { HostingFeatureAccordion} from "../containers/HostingModern/Feature"
+import HostingFaq , { HostingFaqItem } from "../containers/HostingModern/Faq"
+import HostingNewsFeed, { HostingFeedPost } from "../containers/HostingModern/NewsFeed"
+import HostingPricing , { HostingPricingTable , HostingFuturesList} from "../containers/HostingModern/Pricing"
+import HostingService, {HostingServiceItem} from "../containers/HostingModern/Service"
+import HostingTestimonials,{ HostingTestimonialsSlider , HostingTestimonialsSwiper } from "../containers/HostingModern/Testimonials"
+import HostingUltimateFeatures, { HostingFeatureBlock } from "../containers/HostingModern/UltimateFeature"
 
 const MDXComponents = {
   Alert,
@@ -40,18 +40,18 @@ const MDXComponents = {
   // Hosting Modern Template
   HostingNavbar,
   HostingBanner,
-  HostingCSupport,
+  HostingCustomerSupport, HostingIconList,
   HostingCallToA,
-  HostingFaq,
-  HostingFooter,
-  HostingNewsFeed,
-  HostingTestimonials,
+  HostingFaq, HostingFaqItem,
+  HostingFooter, HostingFooterWidget, HostingWidgetLink,
+  HostingNewsFeed, HostingFeedPost,
+  HostingTestimonials, HostingTestimonialsSlider,
   HostingTopBar,
-  HostingPricing,
-  HostingService,
-  HostingUltimateFeature,
-  HostingFeature
+  HostingPricing, HostingPricingTable, HostingFuturesList,
+  HostingService, HostingServiceItem,
+  HostingUltimateFeatures, HostingFeatureBlock,
+  HostingFeature, HostingFeatureAccordion,
+  
 }
-
 export default MDXComponents
 

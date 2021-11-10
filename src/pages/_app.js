@@ -1,7 +1,9 @@
 import { useEffect } from "react"
 
+// import "../../styles/style.css"
 import "../../styles/global.css"
 import "../../styles/normalize.css"
+
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {

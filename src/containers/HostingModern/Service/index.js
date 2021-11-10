@@ -7,27 +7,32 @@ import SectionHeading from '../SectionHeading';
 import ServiceSection, { ServiceWrapper, ServiceItem } from './service.style';
 import { Services } from '../common/data/HostingModern';
 
-const Service = () => {
+
+export const HostingServiceItem = ({title, price}) => {
+  return (
+    <ServiceItem>
+      <Zoom delay={50 * 1}>
+        <h4>{title}</h4>
+        <p className="text-bluedar">${price}/mo</p>
+      </Zoom>
+    </ServiceItem>
+  )
+} 
+
+const HostingService = ({serviceTitle, description, children}) => {
   return (
     <ServiceSection id="services">
       <Container>
         <SectionHeading
-          slogan="Ideal solutions for you"
-          title="Didn’t find what you were looking for?"
+          slogan={serviceTitle || "Ideal solutions for you"}
+          title={description || "Didn’t find what you were looking for?"}
         />
         <ServiceWrapper>
-          {Services.map((service) => (
-            <ServiceItem key={service.id}>
-              <Zoom delay={50 * service.id}>
-                <h4>{service.title}</h4>
-                <p>{service.price}</p>
-              </Zoom>
-            </ServiceItem>
-          ))}
+          {children}
         </ServiceWrapper>
       </Container>
     </ServiceSection>
   );
 };
 
-export default Service;
+export default HostingService;

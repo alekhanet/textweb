@@ -23,19 +23,24 @@ const options = [
   { label: '.ORG', value: 'dot-org' },
 ];
 
-const Banner = () => {
+const Banner = ({
+  bannerTitle,
+  bannerDescription,
+  inputPlaceHolder,
+  buttontText,
+  imageSrc}) => {
   return (
     <BannerSection id="home">
       <Container>
         <ContentWrapper>
           <BannerContent>
-            <Heading as="h1" content="Built your business with a website" />
-            <Text content="Get your tests delivered at let home collect sample from the victory of the managements that supplies best." />
+            <Heading as="h1" content={bannerTitle || "Built your business with a website"} />
+            <Text content={bannerDescription || "Get your tests delivered at let home collect sample from the victory of the managements that supplies best."} />
             <DomainChecker>
               <DomainControl>
                 <Input
                   inputType="text"
-                  placeholder="Your domain name"
+                  placeholder={inputPlaceHolder || "Your domain name"}
                   iconPosition="left"
                   aria-label="domain"
                 />
@@ -48,11 +53,11 @@ const Banner = () => {
                   }}
                 />
               </DomainControl>
-              <Button fullWidth title="Start for free" type="submit" />
+              <Button fullWidth title={buttontText || "Start for free"} type="submit" />
             </DomainChecker>
           </BannerContent>
           <BannerImage>
-            <NextImage src={illustration} alt="" />
+            <NextImage src={ imageSrc || illustration} alt="" />
           </BannerImage>
         </ContentWrapper>
       </Container>

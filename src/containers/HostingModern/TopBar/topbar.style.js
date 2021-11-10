@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { themeGet } from '@styled-system/theme-get';
 
 const TopBarWrapper = styled.div`
-  background-color: ${themeGet('colors.primary')};
+  background-color: #362c8b;
   color: #fff;
   padding: 15px 0;
   font-size: 14px;

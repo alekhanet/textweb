@@ -20,7 +20,7 @@ import HeaderWrapper, {
   MobileNav,
 } from './navbar.style';
 
-const Navbar = () => {
+const Navbar = ({navLinks,logoSrc, buttonText}) => {
   const [mobileMenu, setMobileMenu] = useState(false);
 
   const handleMobileMenu = () => {
@@ -30,23 +30,33 @@ const Navbar = () => {
   const handleHandleMenuClose = () => {
     setMobileMenu(false);
   };
+  
+  let Links = [];
+  if (navLinks) {
+    Links = navLinks.split(',')
+  }
 
   return (
     <HeaderWrapper>
       <Container>
         <HeaderInner>
           <Logo>
-            <Image src={logo?.src} alt="Hosting Modern" />
+            <Image src={logoSrc || logo?.src} alt="Hosting Modern" />
           </Logo>
           <PrimaryNav>
-            <ScrollSpyMenu
-              className="primaryNav"
-              menuItems={MenuItems}
-              offset={-70}
-            />
+            <div>
+            {Links.map((l, index) => (
+              <li className="li-list" key={`menu_key${index}`}>
+                <AnchorLink
+                  href="#"
+                >
+                  {l}
+                </AnchorLink>
+              </li>))}
+            </div>
             <Link href="#">
               <a className="joinButton">
-                <Button title="Join Community" />
+                {<Button title={buttonText || "Join Community"} />}
               </a>
             </Link>
           </PrimaryNav>
@@ -80,17 +90,29 @@ const Navbar = () => {
 
       <MobileNav className={mobileMenu ? 'is-active' : ''}>
         <Scrollspy className="mobileNav" menuItems={MenuItems} offset={-70}>
-          {MenuItems.map((menu, index) => (
+          {
+            Links.map((l, index) => (
             <li key={`menu_key${index}`}>
               <AnchorLink
-                href={menu.path}
-                offset={menu.offset}
-                onClick={handleHandleMenuClose}
+                href="#"
               >
-                {menu.label}
+                {l}
               </AnchorLink>
             </li>
-          ))}
+          // )) ||
+          // // If Links that comes from props is null 
+          // MenuItems.map((menu, index) => (
+          //   <li key={`menu_key${index}`}>
+          //     <AnchorLink
+          //       href={menu.path}
+          //       offset={menu.offset}
+          //       onClick={handleHandleMenuClose}
+          //     >
+          //       {menu.label}
+          //     </AnchorLink>
+          //   </li>
+          )
+          )}
         </Scrollspy>
         <Link href="#">
           <a className="joinButton">Join Community</a>
